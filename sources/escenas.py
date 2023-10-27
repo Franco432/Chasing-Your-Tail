@@ -9,7 +9,7 @@ from pygame.event import get
 from pygame.mixer import music
 from threading import Thread
 
-path = "C:/Users/frank/Desktop/Repositorio/Proyectos_Python/Proyectos_en_curso/plantilla_juego_manyfile/assets/"
+path = "/Chasing-Your-Tail/assets/"
 path_juego = path + 'game/'
 path_menu  = path + 'menu/'
 path_pausa = path + 'pausa/'
