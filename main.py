@@ -66,10 +66,11 @@ game['cargando'] = False
 while game['ejecutando']:
 	# Intentar correr un frame del juego
 	try:
+		# Limitar fps y compartir el DeltaTime con las escenas
+		game['dt'] = clock.tick(70)/100
 		# Actualizar el estado del juego respecto a lo que ocurra en la escena actual
 		game['escenas'][game['escena_actual']].funciones()
-		# Limitar fps y actualizar pantalla
-		clock.tick(70)
+		
 	# Mostrar que ocurrió un error si eso pasa
 	except Exception as e:
 		game['ejecutando'] = False
