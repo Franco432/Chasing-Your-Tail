@@ -1,9 +1,14 @@
 from sources.escenas import *
+from sources.cabeza import cabeza
+from sources.cola import cola
 
 # Definir el juego
 class juego():
 	def __init__(self, juego) -> None:
 		self.juego = juego
+		# Crear las partes del perro
+		self.cabeza = cabeza(path_juego+'images/perro/')
+		self.cola = cola(path_juego+'images/perro/')
 		# Crear grupo que contendrá sus imágenes
 		self.grupo = Group()
 		# Añadir el fondo para que lo dibuje
@@ -18,6 +23,8 @@ class juego():
 		self.pos_mouse = get_pos()
 		# Controlar los botones
 		Thread(target=self.boton_pausa.cambiar_color, args=(self.pos_mouse,)).start()
+		# Controlar al perro
+		Thread(target=self.perro).start()
 		# Obtener y reaccionar a los eventos del usuario
 		self.eventos()
 		# Dibujar cosas en pantalla
@@ -29,6 +36,9 @@ class juego():
 		self.juego['screen'].fill((0, 0, 0))
 		# Dibujar los sprites en pantalla
 		self.grupo.draw(self.juego['screen'])
+		# Mostrar las partes del perro
+		self.juego['screen'].blit(self.cola.image, self.cola.pos)
+		self.juego['screen'].blit(self.cabeza.image, self.cabeza.pos)
 		# Actualizar la pantalla
 		flip()
 	
@@ -46,3 +56,7 @@ class juego():
 					Thread(target=self.boton_pausa.sonidos[1].play).start()
 					# Poner música de la cueva cuando se juega la partida
 					Thread(target=musicar, args=(path_pausa+'music/musica_pausa.ogg',1.5)).start()
+
+	# Definir función para controlar al perro
+	def perro(self):
+		pass
