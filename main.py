@@ -35,11 +35,15 @@ try:
 	# Definir el juego
 	from sources.juego import juego
 
+	# Definir la cinemática
+	from sources.cinematica import cinematica
+
 	# Crear instancias de escenas
 	game['escenas'] = {}
 	game['escenas']['menu'] = menu_inicio(game)
 	game['escenas']['pausa'] = pausa(game)
 	game['escenas']['juego'] = juego(game)
+	game['escenas']['cinem'] = cinematica(game)
 	game['escena_actual'] = 'menu'
 
 	# Crear variables que controlen la escena actual
@@ -68,7 +72,7 @@ while game['ejecutando']:
 		clock.tick(70)
 	# Mostrar que ocurrió un error si eso pasa
 	except Exception as e:
-		ejecutando = False
+		game['ejecutando'] = False
 		print(f'An error has ocurred during the game, please report this with the key error:\n{e}')
 
 # Cerrar la ventana cuando termine el juego
