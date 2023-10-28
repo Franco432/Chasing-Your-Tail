@@ -69,6 +69,6 @@ class menu_inicio():
 					case 'quit': self.juego['ejecutando'] = False
 					# Poner el juego
 					case 'play':
-						self.juego['escena_actual'] = 'juego'
-						# Poner música de la cueva cuando se juega la partida
-						Thread(target=musicar, args=(path_juego+'music/musica_partida.ogg',)).start()
+						self.juego['escena_actual'] = 'cinem'
+						# Poner la música de la cinemática
+						Thread(target=musicar, args=(path_cinem+'music/musica_cinematica.ogg',)).start()

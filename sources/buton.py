@@ -1,6 +1,5 @@
 from sources.imagen import imagen
 from pygame.mixer import Sound
-from threading import Thread
 
 # Definir clase de botón
 class buton(imagen):
