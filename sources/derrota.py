@@ -1,17 +1,15 @@
 from sources.escenas import *
 
-class pausa():
+class derrota():
 	def __init__(self, juego) -> None:
 		self.juego = juego
-		# Crear variable para guardar el momento en que se puso la pausa
-		self.inicio = 0
 		# Crear grupo que contendrá sus imágenes
 		self.grupo = Group()
 		# Añadir el fondo para que lo dibuje
-		self.grupo.add(imagen(path_pausa+'images/fondo.jpg', 0, 0, 1280, 720))
+		self.grupo.add(imagen(path_derro+'images/fondo.jpg', 0, 0, 1280, 720))
 		# Añadir botones
-		self.botones = {'quit':buton(path_pausa+'images/exit.png', 400, 400, 300, 150, path_pausa+'sounds/sonido_posarse.ogg', path_pausa+'sounds/sonido_presionarse.ogg'),
-						'play':buton(path_pausa+'images/resume.png', 400, 200, 300, 150, path_pausa+'sounds/sonido_posarse.ogg', path_pausa+'sounds/sonido_presionarse.ogg'),}
+		self.botones = {'quit':buton(path_derro+'images/exit.png', 400, 400, 300, 150, path_derro+'sounds/sonido_posarse.ogg', path_derro+'sounds/sonido_presionarse.ogg'),
+						'play':buton(path_derro+'images/reintentar.png', 400, 200, 300, 150, path_derro+'sounds/sonido_posarse.ogg', path_derro+'sounds/sonido_presionarse.ogg'),}
 		# Añadir los sprites de los botones
 		for boton in self.botones: self.grupo.add(self.botones[boton])
 	
@@ -62,12 +60,11 @@ class pausa():
 					# Si apreto el botón de salir, apagar el juego
 					case 'quit':
 						self.juego['escena_actual'] = 'menu'
-						Thread(target=self.juego['escenas']['juego'].__init__(self.juego)).start()
 						# Poner música de la cueva cuando se juega la partida
 						Thread(target=musicar, args=(path_menu+'music/musica_inicio.ogg',1.5)).start()
 					# Poner el juego
 					case 'play':
-						self.juego['escena_actual'] = 'juego'
-						self.juego['escenas']['juego'].inicio += get_ticks()/1000-self.inicio
+						self.juego['escena_actual'] = 'cinem'
+						Thread(target=self.juego['escenas']['juego'].__init__(self.juego)).start()
 						# Poner música de la cueva cuando se juega la partida
-						Thread(target=musicar, args=(path_juego+'music/musica_partida.ogg',)).start()
+						Thread(target=musicar, args=(path_cinem+'music/musica_cinematica.ogg',)).start()

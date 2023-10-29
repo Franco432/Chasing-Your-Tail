@@ -38,12 +38,16 @@ try:
 	# Definir la cinemática
 	from sources.cinematica import cinematica
 
+	# Importar la pantalla de derrota
+	from sources.derrota import derrota
+
 	# Crear instancias de escenas
 	game['escenas'] = {}
 	game['escenas']['menu'] = menu_inicio(game)
 	game['escenas']['pausa'] = pausa(game)
 	game['escenas']['juego'] = juego(game)
 	game['escenas']['cinem'] = cinematica(game)
+	game['escenas']['derro'] = derrota(game)
 	game['escena_actual'] = 'menu'
 
 	# Crear variables que controlen la escena actual
