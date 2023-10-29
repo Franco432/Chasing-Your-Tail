@@ -29,6 +29,8 @@ class juego():
 		self.tiempo = self.fuente_cron.render('1:05', False, (255, 240, 225))
 		# Crear variable que dirá cuánto tiempo queda
 		self.tiempo_restante = self.tiempo_inicial = self.tiempo_anterior = 65
+		# Crear variable que dirá cuál fue la tecla que presionó el usuario por última vez
+		self.tecla = 'n'
 
 	# Controlar lo que pasa en la partida
 	def funciones(self):
@@ -41,7 +43,7 @@ class juego():
 		# Controlar el cronómetro
 		Thread(target=self.cronometro).start()
 		# Controlar al perro
-		self.perro()
+		Thread(target=self.perro).start()
 		# Obtener y reaccionar a los eventos del usuario
 		self.eventos()
 		# Dibujar cosas en pantalla
@@ -71,10 +73,21 @@ class juego():
 	# Definir función para recibir inputs del usuario
 	def eventos(self):
 		for event in get():
-			# Salir del juego
-			if event.type == QUIT: self.juego['ejecutando'] = False
+			# Si presionó una tecla
+			if event.type == KEYDOWN:
+				# Inentar cambiar su tecla a una que sirva para mover al perro
+				match event.key:
+					case  97: self.tecla = 'a'
+					case 113: self.tecla = 'q'
+					case 100: self.tecla = 'd'
+					case 101: self.tecla = 'e'
+					case 102: self.tecla = 'f'
+					case 114: self.tecla = 'r'
+					case 104: self.tecla = 'h'
+					case 121: self.tecla = 'y'
+
 			# Si presionó el mouse con click izquierdo
-			if event.type == MOUSEBUTTONUP and event.button == 1:
+			elif event.type == MOUSEBUTTONUP and event.button == 1:
 				# Poner la pausa si apretó el botón de pausa
 				if self.boton_pausa.presionado:
 					self.juego['escena_actual'] = 'pausa'
@@ -85,9 +98,15 @@ class juego():
 					# Poner música de la cueva cuando se juega la partida
 					Thread(target=musicar, args=(path_pausa+'music/musica_pausa.ogg',1.5)).start()
 
+			# Salir del juego
+			elif event.type == QUIT: self.juego['ejecutando'] = False
+
 	# Definir función para controlar al perro
 	def perro(self):
-		Thread(target=self.fondo.moverse, args=(self.juego['dt'], self.time)).start()
+		self.fondo.moverse(self.juego['dt'], self.time)
+		# Hacer que la cabeza sepa a qué tecla tiene que cambiar
+		self.cabeza.cambios(self.fondo.velocidad, self.time)
+		self.cabeza.cambiar(self.tecla, self.time)
 
 	# Definir función para controlar el cronómetro
 	def cronometro(self):
