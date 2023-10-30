@@ -107,6 +107,8 @@ class juego():
 		# Hacer que la cabeza sepa a qué tecla tiene que cambiar
 		self.cabeza.cambios(self.fondo.velocidad, self.time)
 		self.cabeza.cambiar(self.tecla, self.time)
+		# Hacer que el trasero del perro se mueva
+		self.cola.cambiar(self.fondo.velocidad, self.time)
 
 	# Definir función para controlar el cronómetro
 	def cronometro(self):
