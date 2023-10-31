@@ -23,6 +23,8 @@ class cabeza():
 		self.image = self.imagenes[0]
 		# Crear variable que guarde su pocición en pantalla
 		self.pos = [0, 50]
+		# Crear variable que guarde su distancia con la cola
+		self.distant = 1024
 		# Definir variable que define si está sacando su lengua
 		self.lengua = 0
 		# Definir variable que indica si el usuario debe apretar una tecla
@@ -39,7 +41,7 @@ class cabeza():
 		self.dic = {'a':'d', 'd':'a', 'f':'h', 'h':'f', 'q':'e', 'e':'q', 'r':'y', 'y':'r'}
 
 	# Definir función para 
-	def cambiar(self, tecla, time):
+	def cambiar(self, tecla, time, dt):
 		# Si ya llegó el momento de cambiar el estado de la lengua
 		if time-self.cowlen >= 1:
 			# Guardar el momento del cambio de la lengua
@@ -55,22 +57,30 @@ class cabeza():
 				self.cambio = False
 				self.tecla = tecla
 				self.cowcam = time
+				# Disminuir su distancia a la cola
+				self.distant -= (70 if self.lengua == 2 else 35)*dt
+				print(self.distant)
 				# Cambiar la imagen del perro (se aplica el índice de la lengua)
 				if tecla in ('h', 'y'): self.image = self.imagenes[3+self.lengua*4]
 				elif tecla in ('f', 'r'): self.image = self.imagenes[2+self.lengua*4]
 				elif tecla in ('d', 'e'): self.image = self.imagenes[1+self.lengua*4]
 				elif tecla in ('a', 'q'): self.image = self.imagenes[0+self.lengua*4]
+		
+		# Aumentar su distancia de la cola si ya debió haber presionado la tecla, dependiendo de si está corriendo o no
+		if ((self.lengua == 2 and time-self.cowcam > 0.3) or (time-self.cowcam > 0.6)) and self.distant < 1024:
+			self.distant += 1*dt
+		
+		# Cambiar su pocisión en la pantalla según si está yendo hacia la derecha o caminando y qué tan cerca está del perro
+		self.pos[0] = (1024-self.distant) if self.derecha else (self.distant)
 
 	# Definir función para saber cuándo debe cambiar de animación
 	def cambios(self, vel_fondo, time):
 		# Si la dirección del fondo es diferente a la guardada
-		if (vel_fondo < 0) != self.derecha:
+		if (vel_fondo < 0) != self.derecha or (self.lengua != 2) != (abs(vel_fondo) < 100):
 			# Cambiar su guardado de dirección
 			self.derecha = (vel_fondo < 0)
 			# Definir con la lengua si está corriendo o caminando
 			self.lengua = 0 if abs(vel_fondo) < 100 else 2
-			# Cmbiar su pocisión en la pantalla según si está yendo hacia la derecha o caminando
-			self.pos[0] = 0 if self.derecha else 1024
 			# Cambiar su imagen y sus teclas de acuerdo a su dirección y velocidad
 			if self.derecha:
 				# Si está corriendo

@@ -40,12 +40,12 @@ class cola():
 	# Definir función que cambie la animación de la cola
 	def cambiar(self, vel_fondo, time):
 		# Si el fondo cambió de dirección
-		if self.derecha != (vel_fondo > 0):
+		if self.derecha != (vel_fondo > 0) or (self.cola != 2) != (abs(vel_fondo) < 100):
 			self.derecha = (vel_fondo > 0)
 			# Definir con la cola si está corriendo o caminando
 			self.cola = 0 if abs(vel_fondo) < 100 else 2
 			# Definir su cowldown de cambio de pata según si está o no corriendo
-			self.cowldown_pata = 0.325 if self.cola == 2 else 0.75
+			self.cowldown_pata = 0.3 if self.cola == 2 else 0.7
 			# Cambiar su pocisión en la pantalla según si está yendo hacia la derecha o caminando
 			self.pos[0] = 0 if self.derecha else 1024
 			# Cambiar su imagen y sus teclas de acuerdo a su dirección
@@ -70,7 +70,7 @@ class cola():
 		if time-self.camCola > self.cowldown_cola and self.cola != 2:
 			# Guardar el cambio
 			self.camCola = time
-			self.cowldown_cola = 0.5+random()
+			self.cowldown_cola = 0.1+random()/3
 			self.cola = not self.cola
 			# Cambiar su imagen
 			self.image = self.imagenes[self.pata+self.cola*4]

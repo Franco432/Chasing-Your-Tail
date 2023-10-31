@@ -33,6 +33,6 @@ class fondo():
 			velocidad = random()*300-150
 			# Hacer que su velocidad solo pueda estar en dos rangos separados para que sea fácil para el jugador saber qué tan rápido moverse
 			if velocidad > 0:
-				self.velocidad = velocidad if velocidad > +100 or velocidad < +50 else (+101 if velocidad > +100 else +49)
+				self.velocidad = velocidad if velocidad > +100 or velocidad < +50 else (+100 if velocidad > +75 else +50)
 			else:
-				self.velocidad = velocidad if velocidad < -100 or velocidad > -50 else (-101 if velocidad < -100 else -49)
+				self.velocidad = velocidad if velocidad < -100 or velocidad > -50 else (-100 if velocidad < -75 else -50)

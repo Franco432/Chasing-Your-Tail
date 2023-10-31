@@ -41,6 +41,9 @@ try:
 	# Importar la pantalla de derrota
 	from sources.derrota import derrota
 
+	# Importar la pantalla de victoria
+	from sources.victoria import victoria
+
 	# Crear instancias de escenas
 	game['escenas'] = {}
 	game['escenas']['menu'] = menu_inicio(game)
@@ -48,6 +51,7 @@ try:
 	game['escenas']['juego'] = juego(game)
 	game['escenas']['cinem'] = cinematica(game)
 	game['escenas']['derro'] = derrota(game)
+	game['escenas']['victo'] = victoria(game)
 	game['escena_actual'] = 'menu'
 
 	# Crear variables que controlen la escena actual

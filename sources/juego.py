@@ -11,13 +11,25 @@ class juego():
 		self.juego = juego
 		# Crear variable que guardará cuánto tiempo lleva jugando
 		self.inicio = 0
-		# Crear sonido de derrota
+		# Crear sonido de derrota y victoria
 		self.derrota = Sound(path_juego+'sounds/sonidos_muerte.ogg')
+		self.victoria = Sound(path_juego+'sounds/sonidos_hurra.ogg')
 		# Crear sonidos de timba
 		self.timba = Sound(path_juego+'sounds/sonido_timba.ogg')
 		# Crear las partes del perro
 		self.cabeza = cabeza(path_juego+'images/perro/')
 		self.cola = cola(path_juego+'images/perro/')
+		# Crear las imágenes de las teclas que debe presionar
+		self.presiones = {
+			'a':imagen(path_juego+'images/interfaz/press_a.png', 0, 0, 260, 120).image,
+			'd':imagen(path_juego+'images/interfaz/press_d.png', 0, 0, 260, 120).image,
+			'f':imagen(path_juego+'images/interfaz/press_f.png', 0, 0, 260, 120).image,
+			'h':imagen(path_juego+'images/interfaz/press_h.png', 0, 0, 260, 120).image,
+			'q':imagen(path_juego+'images/interfaz/press_q.png', 0, 0, 260, 120).image,
+			'e':imagen(path_juego+'images/interfaz/press_e.png', 0, 0, 260, 120).image,
+			'r':imagen(path_juego+'images/interfaz/press_r.png', 0, 0, 260, 120).image,
+			'y':imagen(path_juego+'images/interfaz/press_y.png', 0, 0, 260, 120).image,
+		}
 		# Añadir el fondo para que lo dibuje
 		self.fondo = fondo(path_juego+'images/')
 		# Añadir una imagen de un conómetro para contar el tiempo
@@ -64,7 +76,9 @@ class juego():
 		# Dibujar el cronómetro y el tiempo que queda
 		screen.blit(self.cronos, (640, 20))
 		screen.blit(self.tiempo, (650, 30))
-		# Dibujar su botón en pantalla
+		# Dibujar el mensaje que le dice qué tecla debe presionar
+		screen.blit(self.presiones[self.cabeza.tecla_deber], (370, 20))
+		# Dibujar su botón de pausa en pantalla
 		screen.blit(self.boton_pausa.image, (self.boton_pausa.x, self.boton_pausa.y))
 		
 		# Actualizar la pantalla
@@ -106,9 +120,17 @@ class juego():
 		self.fondo.moverse(self.juego['dt'], self.time)
 		# Hacer que la cabeza sepa a qué tecla tiene que cambiar
 		self.cabeza.cambios(self.fondo.velocidad, self.time)
-		self.cabeza.cambiar(self.tecla, self.time)
+		self.cabeza.cambiar(self.tecla, self.time, self.juego['dt'])
 		# Hacer que el trasero del perro se mueva
 		self.cola.cambiar(self.fondo.velocidad, self.time)
+		# Pasar a la pantalla de victoria si ganó
+		if self.cabeza.distant <= 224:
+			# Poner sonido de victoria
+			Thread(target=self.victoria.play).start()
+			# Cambiar la escena a victoria
+			self.juego['escena_actual'] = 'victo'
+			# Poner música de la pantalla de victoria
+			Thread(target=musicar, args=(path_victo+'music/musica_victoria.ogg',1.5)).start()
 
 	# Definir función para controlar el cronómetro
 	def cronometro(self):
