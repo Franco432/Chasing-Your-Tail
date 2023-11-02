@@ -1,7 +1,9 @@
 from sources.imagen import imagen
+from random import random
+from pygame.mixer import Sound
 
 class cabeza():
-	def __init__(self, ruta) -> None:
+	def __init__(self, ruta, sonido1, sonido2) -> None:
 		# Crear tuplas con todos los frames de las animaciones que va a tener
 		sprites = (
 			(ruta+'cabeza_boc_a.png', 256, 540),
@@ -27,6 +29,8 @@ class cabeza():
 		self.distant = 1024
 		# Definir variable que define si está sacando su lengua
 		self.lengua = 0
+		# Crear variable que define el cowldown hasta que saca la lengua
+		self.cowldown_len = 0.1+random()
 		# Definir variable que indica si el usuario debe apretar una tecla
 		self.cambio = 1
 		# Definir el cowldown para cambiar de tecla y de lengua
@@ -39,15 +43,22 @@ class cabeza():
 		self.derecha = -1
 		# Definir diccionario que diga qué tecla tiene que cambiar a cuál
 		self.dic = {'a':'d', 'd':'a', 'f':'h', 'h':'f', 'q':'e', 'e':'q', 'r':'y', 'y':'r'}
+		# Definir diccionario para saber el índice de imagen de cada tecla
+		self.dic_teclas = {'h':3, 'y':3, 'f':2, 'r':2, 'd':1, 'e':1, 'a':0, 'q':0}
+		# Crear sonidos para cuando pisa
+		self.sonido1, self.sonido2 = Sound(sonido1), Sound(sonido2)
 
 	# Definir función para 
 	def cambiar(self, tecla, time, dt):
 		# Si ya llegó el momento de cambiar el estado de la lengua
-		if time-self.cowlen >= 1:
+		if time-self.cowlen >= self.cowldown_len:
 			# Guardar el momento del cambio de la lengua
 			self.cowlen = time
+			self.cowldown_len = 0.1+random()/2
 			# Si no está corriendo, hacer que solo saque o meta la lengua
 			if self.lengua < 2: self.lengua = not self.lengua
+			# Cambiar su imagen
+			self.image = self.imagenes[self.dic_teclas[self.tecla]+self.lengua*4]
 
 		# Si la tecla que el usuario está presionando es diferente a la que había presionado la última vez
 		if tecla != self.tecla:
@@ -57,14 +68,13 @@ class cabeza():
 				self.cambio = False
 				self.tecla = tecla
 				self.cowcam = time
+				# Emitir sonido de pisada
+				if tecla in ('a', 'f', 'q', 'r'): self.sonido1.play()
+				else:  self.sonido2.play()
 				# Disminuir su distancia a la cola
 				self.distant -= (70 if self.lengua == 2 else 35)*dt
-				print(self.distant)
 				# Cambiar la imagen del perro (se aplica el índice de la lengua)
-				if tecla in ('h', 'y'): self.image = self.imagenes[3+self.lengua*4]
-				elif tecla in ('f', 'r'): self.image = self.imagenes[2+self.lengua*4]
-				elif tecla in ('d', 'e'): self.image = self.imagenes[1+self.lengua*4]
-				elif tecla in ('a', 'q'): self.image = self.imagenes[0+self.lengua*4]
+				self.image = self.imagenes[self.dic_teclas[tecla]+self.lengua*4]
 		
 		# Aumentar su distancia de la cola si ya debió haber presionado la tecla, dependiendo de si está corriendo o no
 		if ((self.lengua == 2 and time-self.cowcam > 0.3) or (time-self.cowcam > 0.6)) and self.distant < 1024:

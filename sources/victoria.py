@@ -8,7 +8,7 @@ class victoria():
 		# Añadir el fondo para que lo dibuje
 		self.grupo.add(imagen(path_victo+'images/fondo.jpg', 0, 0, 1280, 720))
 		# Añadir botones
-		self.botones = {'quit':buton(path_victo+'images/exit.png', 400, 400, 300, 150, path_victo+'sounds/sonido_posarse.ogg', path_victo+'sounds/sonido_presionarse.ogg'),
+		self.botones = {'quit':buton(path_victo+'images/exit.png', 800, 400, 300, 150, path_victo+'sounds/sonido_posarse.ogg', path_victo+'sounds/sonido_presionarse.ogg'),
 		}
 		# Añadir los sprites de los botones
 		for boton in self.botones: self.grupo.add(self.botones[boton])

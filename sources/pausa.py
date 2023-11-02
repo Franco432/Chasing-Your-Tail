@@ -10,8 +10,8 @@ class pausa():
 		# Añadir el fondo para que lo dibuje
 		self.grupo.add(imagen(path_pausa+'images/fondo.jpg', 0, 0, 1280, 720))
 		# Añadir botones
-		self.botones = {'quit':buton(path_pausa+'images/exit.png', 400, 400, 300, 150, path_pausa+'sounds/sonido_posarse.ogg', path_pausa+'sounds/sonido_presionarse.ogg'),
-						'play':buton(path_pausa+'images/resume.png', 400, 200, 300, 150, path_pausa+'sounds/sonido_posarse.ogg', path_pausa+'sounds/sonido_presionarse.ogg'),}
+		self.botones = {'quit':buton(path_pausa+'images/exit.png'  , 460, 450, 300, 150, path_pausa+'sounds/sonido_posarse.ogg', path_pausa+'sounds/sonido_presionarse.ogg'),
+						'play':buton(path_pausa+'images/resume.png', 435, 250, 350, 150, path_pausa+'sounds/sonido_posarse.ogg', path_pausa+'sounds/sonido_presionarse.ogg'),}
 		# Añadir los sprites de los botones
 		for boton in self.botones: self.grupo.add(self.botones[boton])
 	

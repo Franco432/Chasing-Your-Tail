@@ -17,7 +17,7 @@ class juego():
 		# Crear sonidos de timba
 		self.timba = Sound(path_juego+'sounds/sonido_timba.ogg')
 		# Crear las partes del perro
-		self.cabeza = cabeza(path_juego+'images/perro/')
+		self.cabeza = cabeza(path_juego+'images/perro/', path_juego+'sounds/sonido_1.ogg', path_juego+'sounds/sonido_2.ogg')
 		self.cola = cola(path_juego+'images/perro/')
 		# Crear las imágenes de las teclas que debe presionar
 		self.presiones = {
