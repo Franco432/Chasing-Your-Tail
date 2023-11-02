@@ -24,7 +24,7 @@ try:
 	init()
 
 	# Ponerle título a la ventana
-	set_caption("Michael's voice of the cave")
+	set_caption("Chasing your tail")
 
 	# Importar el menú de inicio
 	from sources.menu_inicio import menu_inicio
