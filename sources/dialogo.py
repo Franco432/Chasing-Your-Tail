@@ -5,7 +5,7 @@ class dialogo():
 	def __init__(self, texto, sonido, duracion = 0.03) -> None:
 		self.sonido, self.cambiar, self.cowldown, self.textos, self.textos_llevados, self.ind_letra, self.ind_texto, self.momen_letra, self.max = \
 		Sound(sonido), 0, duracion, texto.split('\n'), [''], 0, 0, 0, len(texto.split('\n')[0])
-		self.sonido.set_volume(0.25)
+		self.sonido.set_volume(0.5)
 	
 	# Crear función que hará que cuando pase cierta cantidad de tiempo, se registre una nueva letra en su texto
 	def cambiar_letra(self, time):

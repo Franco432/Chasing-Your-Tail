@@ -24,8 +24,11 @@ class cinematica():
 		sonido_dialogo = path_cinem+'sounds/dialogue_sound.ogg'
 		# Crear muchos dialogos, junto a sus pocisiones y sus backgrounds correspondientes
 		self.diapositivs = (
-			((dialogo('This is ghosty,\nthe phantom dog.\n->', sonido_dialogo), dialogo('My family adopted it\nsome hundreds of years ago.\n->', sonido_dialogo)), 'fondo', (200, 150)),
-			((dialogo('It loves chasing\nits tail and trying\nto bite it.\n->', sonido_dialogo), dialogo('Help it\nwith that!\n->', sonido_dialogo)), 'fondo', (350, 100)), 
+			((dialogo('This is Ghosty,\nthe phantom dog.\n->', sonido_dialogo), dialogo('My family adopted it\nsome hundreds years ago.\n->', sonido_dialogo)), 'fondo', (50, 50)),
+			((dialogo('It loves chasing\nits tail and trying\nto bite it.\n->', sonido_dialogo), dialogo('Help it\nwith that!\n->', sonido_dialogo)), 'fondo2', (450, 100)), 
+			((dialogo('You will see these\nsignals, and you may\nPress the keys they say.\n->', sonido_dialogo), dialogo('The signals will change with the\nbackground movement and when you press their keys.\n->', sonido_dialogo)), 'fondo3', (200, 100)), 
+			((dialogo('The keys you press will make\nGhosty move its legs.\n->', sonido_dialogo), dialogo("You may press the keys quick\nand be faster than\nGhosty's tail.\n->", sonido_dialogo), dialogo("You will win when\nyou bite its tail\n->", sonido_dialogo)), 'fondo4', (300, 40)),
+			((dialogo("But there will be a \ncronometer, and you might\nloose if you don't bite Ghosty's tail in time.\n->", sonido_dialogo),), 'fondo5', (200, 100)),  
 		)
 		# Iniciar con los índices en 0
 		self.num_diapositiva = self.num_texto = 0
