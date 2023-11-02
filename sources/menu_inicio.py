@@ -12,8 +12,8 @@ class menu_inicio():
 		# Añadir el fondo para que lo dibuje
 		self.grupo.add(imagen(path_menu+'images/fondo.jpg', 0, 0, 1280, 720))
 		# Añadir botones
-		self.botones = {'quit':buton(path_menu+'images/quit.png', 400, 400, 300, 150, path_menu+'sounds/sonido_posarse.ogg', path_menu+'sounds/sonido_presionarse.ogg'),
-						'play':buton(path_menu+'images/play.png', 400, 200, 300, 150, path_menu+'sounds/sonido_posarse.ogg', path_menu+'sounds/sonido_presionarse.ogg'),}
+		self.botones = {'quit':buton(path_menu+'images/quit.png', 450, 450, 300, 150, path_menu+'sounds/sonido_posarse.ogg', path_menu+'sounds/sonido_presionarse.ogg'),
+						'play':buton(path_menu+'images/play.png', 450, 250, 300, 150, path_menu+'sounds/sonido_posarse.ogg', path_menu+'sounds/sonido_presionarse.ogg'),}
 		# Añadir los sprites de los botones
 		for boton in self.botones: self.grupo.add(self.botones[boton])
 

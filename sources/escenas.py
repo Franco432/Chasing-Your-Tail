@@ -16,6 +16,8 @@ path_juego = path + 'game/'
 path_menu  = path + 'menu/'
 path_pausa = path + 'pausa/'
 path_cinem = path + 'cinem/'
+path_derro = path + 'derro/'
+path_victo = path + 'victo/'
 
 # Create function to change and play music in cualquier scene
 def musicar(cancion:str, segundo:float=0):

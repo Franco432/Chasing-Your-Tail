@@ -38,12 +38,20 @@ try:
 	# Definir la cinemática
 	from sources.cinematica import cinematica
 
+	# Importar la pantalla de derrota
+	from sources.derrota import derrota
+
+	# Importar la pantalla de victoria
+	from sources.victoria import victoria
+
 	# Crear instancias de escenas
 	game['escenas'] = {}
 	game['escenas']['menu'] = menu_inicio(game)
 	game['escenas']['pausa'] = pausa(game)
 	game['escenas']['juego'] = juego(game)
 	game['escenas']['cinem'] = cinematica(game)
+	game['escenas']['derro'] = derrota(game)
+	game['escenas']['victo'] = victoria(game)
 	game['escena_actual'] = 'menu'
 
 	# Crear variables que controlen la escena actual
@@ -66,10 +74,11 @@ game['cargando'] = False
 while game['ejecutando']:
 	# Intentar correr un frame del juego
 	try:
+		# Limitar fps y compartir el DeltaTime con las escenas
+		game['dt'] = clock.tick(70)/100
 		# Actualizar el estado del juego respecto a lo que ocurra en la escena actual
 		game['escenas'][game['escena_actual']].funciones()
-		# Limitar fps y actualizar pantalla
-		clock.tick(70)
+		
 	# Mostrar que ocurrió un error si eso pasa
 	except Exception as e:
 		game['ejecutando'] = False
