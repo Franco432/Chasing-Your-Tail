@@ -3,13 +3,15 @@ from sources.escenas import *
 class pausa():
 	def __init__(self, juego) -> None:
 		self.juego = juego
+		# Crear variable para guardar el momento en que se puso la pausa
+		self.inicio = 0
 		# Crear grupo que contendrá sus imágenes
 		self.grupo = Group()
 		# Añadir el fondo para que lo dibuje
 		self.grupo.add(imagen(path_pausa+'images/fondo.jpg', 0, 0, 1280, 720))
 		# Añadir botones
-		self.botones = {'quit':buton(path_pausa+'images/exit.png', 400, 400, 300, 150, path_pausa+'sounds/sonido_posarse.ogg', path_pausa+'sounds/sonido_presionarse.ogg'),
-						'play':buton(path_pausa+'images/resume.png', 400, 200, 300, 150, path_pausa+'sounds/sonido_posarse.ogg', path_pausa+'sounds/sonido_presionarse.ogg'),}
+		self.botones = {'quit':buton(path_pausa+'images/exit.png'  , 460, 450, 300, 150, path_pausa+'sounds/sonido_posarse.ogg', path_pausa+'sounds/sonido_presionarse.ogg'),
+						'play':buton(path_pausa+'images/resume.png', 435, 250, 350, 150, path_pausa+'sounds/sonido_posarse.ogg', path_pausa+'sounds/sonido_presionarse.ogg'),}
 		# Añadir los sprites de los botones
 		for boton in self.botones: self.grupo.add(self.botones[boton])
 	
@@ -66,5 +68,6 @@ class pausa():
 					# Poner el juego
 					case 'play':
 						self.juego['escena_actual'] = 'juego'
+						self.juego['escenas']['juego'].inicio += get_ticks()/1000-self.inicio
 						# Poner música de la cueva cuando se juega la partida
 						Thread(target=musicar, args=(path_juego+'music/musica_partida.ogg',)).start()

@@ -99,5 +99,6 @@ class cinematica():
 				self.crear_diapositivas()
 				# Cambiar la escena al juego
 				self.juego['escena_actual'] = 'juego'
+				self.juego['escenas']['juego'].inicio = get_ticks()/1000
 				# Poner la música del juego
 				Thread(target=musicar, args=(path_juego+'music/musica_partida.ogg',)).start()
