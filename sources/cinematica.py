@@ -68,6 +68,8 @@ class cinematica():
 				# Poner el menú si apretó el botón de salir
 				if self.boton_salir.presionado:
 					self.juego['escena_actual'] = 'menu'
+					# Reiniciar sus diapositivas
+					self.crear_diapositivas()
 					# Poner música de la cueva cuando se juega la partida
 					Thread(target=musicar, args=(path_menu+'music/musica_inicio.ogg',1.5)).start()
 				# Cambiar de diapositiva
