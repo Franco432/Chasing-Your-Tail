@@ -27,5 +27,4 @@ class dialogo():
 
 	# Crear función para mostrar el texto que lleva
 	def mostrar_texto(self, x, y, color, font, screen):
-		for num, texto in enumerate(self.textos_llevados):
-			screen.blit(font.render(texto, 0, color), (x, y+num*51))
+		screen.fblits([(font.render(texto, 0, color), (x, y+num*51)) for num, texto in enumerate(self.textos_llevados)])
